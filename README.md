@@ -1,2 +1,2 @@
 # Daily_Coding_Problems
-Daily Coding Problem
+A Log each day while recruiting
