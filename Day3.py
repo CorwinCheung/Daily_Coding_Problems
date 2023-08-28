@@ -5,20 +5,25 @@ class Node:
         self.right = right
 
 
-total_string = ""
-
+# Think about how you want to represent the tree, how are you going to be able to tell leaf nodes apart
+# val NULL NULL, in our case
+# use spaces to split and traverse in the deserializing
 
 def serialize(node):
-    global total_string
-    if not node:
-        total_string += "NULL "
-        return
-    if node.val:
-        total_string += node.val + " "
+    def encode(node):
+        if not node:
+            ans.append("NULL")
+            return
+        if node.val:
+            ans.append(node.val)
+        encode(node.left)
+        encode(node.right)
+    ans = []
+    encode(node)
+    return " ".join(ans)
 
-    serialize(node.left)
-    serialize(node.right)
-    return total_string
+# cleaner to not use global variables
+# Runs in O(N) with O(N) space
 
 
 def deserialize(string):
@@ -35,8 +40,8 @@ def deserialize(string):
 
 def main():
     node = Node('root', Node('left', Node('left.left')), Node('right'))
-    serialize(node)
-    print(total_string)
+    print(serialize(node))
+    print(deserialize(serialize(node)))
     assert deserialize(serialize(node)).left.left.val == 'left.left'
 
 
