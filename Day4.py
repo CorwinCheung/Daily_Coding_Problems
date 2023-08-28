@@ -1,5 +1,20 @@
 
+# Think about sorting as well, O(1) space, O(N log n) time
+
+def sort(arr):
+    arr = sorted(arr)
+    arr = [a for a in arr if a > 0]
+
+    for i in range(1, len(arr)+1):
+        if i != arr[i-1]:
+            return i
+    return len(arr) + 1
+
+
 def with_space(arr):
+    if not arr:
+        return 1
+
     arr_set = set(arr)
 
     for i in range(len(arr)):
@@ -10,6 +25,9 @@ def with_space(arr):
 
 
 def constant_space(arr):
+    if not arr:
+        return 1
+
     counter = 0
     while counter < len(arr):
         i = counter
@@ -37,6 +55,9 @@ def main():
 
     print(constant_space(arr))
     print(constant_space(arr2))
+
+    # print(sort(arr))
+    # print(sort(arr2))
 
 
 main()
