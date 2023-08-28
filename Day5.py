@@ -20,6 +20,8 @@ def cdr(pair):
     # return pair(return_second)
     return pair(lambda x, y: y)
 
+# car = car, cdr = cudder, cons = cons
+
 
 def cons(a, b):
     def pair(f):
@@ -32,5 +34,21 @@ def main():
     print(car(cons(3, 4)))
     print(cdr(cons(3, 4)))
 
+
+#looking into the signature type, where things are stored. 
+# >>> def cons(a, b):
+# ...     def pair(f):
+# ...         return f(a, b)
+# ...     return pair
+# ...
+# >>> cons(42, 81)
+# <function cons.<locals>.pair at 0x11b46f048>
+# >>> pair_42_81 = cons(42, 81)
+# >>> pair_42_81.__closure__
+# (<cell at 0x11b3c02b8: int object at 0x10f59a750>, <cell at 0x11b3c05b8: int object at 0x10f59ac30>)
+# >>> pair_42_81.__closure__[0].cell_contents
+# 42
+# >>> pair_42_81.__closure__[1].cell_contents
+# 81
 
 main()
