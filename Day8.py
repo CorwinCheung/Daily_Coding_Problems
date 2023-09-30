@@ -37,6 +37,34 @@ def unival(Node):
     return count
 
 # call isUnival on all the nodes, recurse through the tree.
+# This solution unfortunately runs in O(N^2) time complexity because
+# For each of the nodes it will be checking the whole subtree
+
+
+def efficient_helper(Node):
+    if Node is None:
+        return 0, True
+    left_count, is_left_unival = efficient_helper(Node.left)
+    right_count, is_right_unival = efficient_helper(Node.right)
+    total = right_count + left_count
+
+    if is_left_unival and is_right_unival:
+        if Node.left != None and Node.left.value != Node.value:
+            return total, False
+        if Node.right != None and Node.right.value != Node.value:
+            return total, False
+        return total + 1, True
+
+    return total, False
+
+
+def efficient_unival(Node):
+    count, _ = efficient_helper(Node)
+    return count
+
+# therefore to solve this problem efficiently, we will need to maintain a count
+# parameter to pass through so we can evaluate the number of univals in a tree in one pass
+#This is an O(n) solution
 
 
 def main():
@@ -49,6 +77,7 @@ def main():
     root.right.left.right = Node(1)
 
     print(unival(root))
+    print(efficient_unival(root))
 
 
 main()
